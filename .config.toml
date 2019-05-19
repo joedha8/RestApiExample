@@ -1,0 +1,23 @@
+[app]
+name = "rest api"
+version = "0.0.1"
+host = "localhost"
+port = 8000
+
+[database]
+host = "localhost"
+port = 26257
+name = "rest_db"
+sslmode = "disable"
+username = "root"
+password = ""
+
+[cache]
+host = "localhost"
+port = 6379
+password = ""
+max_idle = 100
+idle_timeout = 5
+enabled = true
+expire_time = 30
+idempotency_expiry = 86400
