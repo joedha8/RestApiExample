@@ -20,15 +20,15 @@ func AuthenticationMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		hashBody, err := ioutil.ReadAll(r.Body)
+		encriptBody, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			api.RespondError(w, api.MessageUnauthorized, http.StatusUnauthorized)
 
 			return
 		}
 
-		jsonBody := compareHashRequest(key, string(hashBody), time)
-		if jsonBody == "" {
+		jsonBody, errVlidate := validateBody(string(encriptBody), time, key)
+		if errVlidate != nil {
 			api.RespondError(w, api.MessageUnauthorized, http.StatusUnauthorized)
 
 			return
