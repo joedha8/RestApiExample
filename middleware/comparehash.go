@@ -9,6 +9,8 @@ import (
 func compareHashRequest(key string, hashBody string, time string) string {
 	if encodeWithHmac(key, fmt.Sprint(`{"ping_data":"ping"}`, time)) == hashBody {
 		return fmt.Sprint(`{"ping_data":"ping"}`)
+	} else if encodeWithHmac(key, fmt.Sprint(`{"ping_data":"pong"}`, time)) == hashBody {
+		return fmt.Sprint(`{"ping_data":"pong"}`)
 	}
 	return ""
 }
