@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -17,21 +16,21 @@ func AuthenticationMiddleware(next http.Handler) http.Handler {
 
 		if key == "" || time == "" {
 			api.RespondError(w, api.MessageUnauthorized, http.StatusUnauthorized)
-			fmt.Println("key and time empty")
+
 			return
 		}
 
 		hashBody, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			api.RespondError(w, api.MessageUnauthorized, http.StatusUnauthorized)
-			fmt.Println("body empty")
+
 			return
 		}
 
 		jsonBody := compareHashRequest(key, string(hashBody), time)
 		if jsonBody == "" {
 			api.RespondError(w, api.MessageUnauthorized, http.StatusUnauthorized)
-			fmt.Println("failed compare")
+
 			return
 		}
 
