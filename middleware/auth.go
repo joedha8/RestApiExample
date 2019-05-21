@@ -27,7 +27,7 @@ func AuthenticationMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		jsonBody, errVlidate := validateBody(string(encriptBody), time, key)
+		jsonBody, errVlidate := validateBody(strings.Trim(string(encriptBody), `"`), time, key)
 		if errVlidate != nil {
 			api.RespondError(w, api.MessageUnauthorized, http.StatusUnauthorized)
 
