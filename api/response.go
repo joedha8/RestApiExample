@@ -16,7 +16,7 @@ type (
 )
 
 var (
-	MessageUnauthorized = "Please login first or try re-login."
+	MessageUnauthorized = "Unauthorized"
 )
 
 func RespondError(w http.ResponseWriter, message string, status int) {
