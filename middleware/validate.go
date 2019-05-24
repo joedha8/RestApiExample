@@ -27,9 +27,14 @@ func validateBody(encriptBody string, times string) (string, error) {
 
 			fmt.Println("Decoded", string(decodedBody))
 
-			return decodedBody, nil
+			if decodedBody != "" {
+				return decodedBody, nil
+			} else {
+				fmt.Println("Decoded Error")
+				return "", errors.New("Decoded not valid")
+			}
 		} else {
-			fmt.Println("Decoded Error")
+			fmt.Println("Chipertext Error")
 			return "", errors.New("Ciphertext block size not valid")
 		}
 	} else {
@@ -83,7 +88,6 @@ func Decrypt(encrypted string, passphrase string) string {
 	cbc.CryptBlocks(dst, ct)
 
 	decrypt, err := __PKCS5Trimming(dst)
-
 	if err != nil {
 		return ""
 	}
@@ -98,13 +102,11 @@ func __PKCS5Padding(ciphertext []byte, blockSize int) []byte {
 }
 
 func __PKCS5Trimming(encrypt []byte) (string, error) {
-	fmt.Println("Size : ", len(encrypt))
-
-	if len(encrypt) == 32 {
-		padding := encrypt[len(encrypt)-1]
+	padding := encrypt[len(encrypt)-1]
+	if len(encrypt) > int(padding) {
 		return string(encrypt[:len(encrypt)-int(padding)]), nil
 	} else {
-		return "", errors.New("Trimming Error")
+		return "", errors.New("Padding Size Greater Than Encrypt")
 	}
 }
 
@@ -125,31 +127,3 @@ func __DeriveKeyAndIv(passphrase string, salt string) (string, string) {
 
 	return key, iv
 }
-
-// func decrypt(key []byte, securemess string) (decodedmess string, err error) {
-// 	cipherText, err := base64.URLEncoding.DecodeString(securemess)
-// 	fmt.Println(cipherText)
-// 	if err != nil {
-// 		return
-// 	}
-
-// 	block, err := aes.NewCipher(key)
-// 	if err != nil {
-// 		return
-// 	}
-
-// 	if len(cipherText) < aes.BlockSize {
-// 		err = errors.New("Ciphertext block size is too short!")
-// 		return
-// 	}
-
-// 	iv := cipherText[:aes.BlockSize]
-// 	cipherText = cipherText[aes.BlockSize:]
-// 	stream := cipher.NewCFBDecrypter(block, iv)
-// 	// XORKeyStream can work in-place if the two arguments are the same.
-// 	stream.XORKeyStream(cipherText, cipherText)
-
-// 	decodedmess = string(cipherText)
-
-// 	return decodedmess, nil
-// }
