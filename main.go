@@ -1,6 +1,6 @@
 package main
 
-import "github.com/renosyah/RestApiExample/cmd"
+import "github.com/joedha8/RestApiExample/cmd"
 
 func main() {
 	cmd.Execute()

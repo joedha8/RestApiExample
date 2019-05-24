@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/renosyah/RestApiExample/api"
-	"github.com/renosyah/RestApiExample/model"
+	"github.com/joedha8/RestApiExample/api"
+	"github.com/joedha8/RestApiExample/model"
 )
 
 func HandlerPing(w http.ResponseWriter, r *http.Request) (interface{}, *api.Error) {

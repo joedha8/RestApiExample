@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/renosyah/RestApiExample/api"
+	"github.com/joedha8/RestApiExample/api"
 )
 
 func AuthenticationMiddleware(next http.Handler) http.Handler {
