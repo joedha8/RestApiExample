@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/renosyah/RestApiExample/api"
+	"github.com/joedha8/RestApiExample/api"
 )
 
 type (

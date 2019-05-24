@@ -9,10 +9,10 @@ import (
 	"database/sql"
 
 	"github.com/gorilla/mux"
+	"github.com/joedha8/RestApiExample/middleware"
+	"github.com/joedha8/RestApiExample/router"
 	_ "github.com/lib/pq"
 	homedir "github.com/mitchellh/go-homedir"
-	"github.com/renosyah/RestApiExample/middleware"
-	"github.com/renosyah/RestApiExample/router"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
