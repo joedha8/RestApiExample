@@ -2,7 +2,7 @@
 name = "rest api"
 version = "0.0.1"
 host = "localhost"
-port = 8000
+port = 8001
 
 [database]
 host = "localhost"

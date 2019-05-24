@@ -82,9 +82,13 @@ func Decrypt(encrypted string, passphrase string) string {
 	dst := make([]byte, len(ct))
 	cbc.CryptBlocks(dst, ct)
 
-	decrypt := __PKCS5Trimming(dst)
+	decrypt, err := __PKCS5Trimming(dst)
 
-	return string(decrypt)
+	if err != nil {
+		return ""
+	}
+
+	return decrypt
 }
 
 func __PKCS5Padding(ciphertext []byte, blockSize int) []byte {
@@ -93,9 +97,15 @@ func __PKCS5Padding(ciphertext []byte, blockSize int) []byte {
 	return append(ciphertext, padtext...)
 }
 
-func __PKCS5Trimming(encrypt []byte) []byte {
-	padding := encrypt[len(encrypt)-1]
-	return encrypt[:len(encrypt)-int(padding)]
+func __PKCS5Trimming(encrypt []byte) (string, error) {
+	fmt.Println("Size : ", len(encrypt))
+
+	if len(encrypt) == 32 {
+		padding := encrypt[len(encrypt)-1]
+		return string(encrypt[:len(encrypt)-int(padding)]), nil
+	} else {
+		return "", errors.New("Trimming Error")
+	}
 }
 
 func __DeriveKeyAndIv(passphrase string, salt string) (string, string) {
