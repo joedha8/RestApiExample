@@ -11,10 +11,9 @@ import (
 func AuthenticationMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		key := r.Header.Get("key")
 		time := r.Header.Get("time")
 
-		if key == "" || time == "" {
+		if time == "" {
 			api.RespondError(w, api.MessageUnauthorized, http.StatusUnauthorized)
 
 			return
@@ -27,7 +26,7 @@ func AuthenticationMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		jsonBody, errVlidate := validateBody(strings.Trim(string(encriptBody), `"`), time, key)
+		jsonBody, errVlidate := validateBody(strings.Trim(string(encriptBody), `"`), time)
 		if errVlidate != nil {
 			api.RespondError(w, api.MessageUnauthorized, http.StatusUnauthorized)
 
